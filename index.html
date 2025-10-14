@@ -11,12 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
   <style>
-    :root {
-      --maxw: 980px;
-      --text: #1f2937;
-      --muted: #6b7280;
-    }
-    html, body { margin: 0; padding: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); }
+    :root { --maxw: 980px; --text: #1f2937; --muted: #6b7280; }
+    html, body { margin: 0; padding: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans"; color: var(--text); }
     .wrap { max-width: var(--maxw); margin: 32px auto; padding: 0 16px; }
     h1 { font-size: 1.8rem; margin: 0 0 6px; }
     p.sub { margin: 0 0 16px; color: var(--muted); }
@@ -37,7 +33,6 @@
     <!-- VIS 01: Map -->
     <section class="card">
       <figure>
-        <h2 style="margin:0 0 10px;">Road Fatalities per 100,000 by State</h2>
         <div id="vis-01"></div>
         <figcaption>
           Notes: Rates use annual totals and ERP averages. Hover for details. Use the dropdown to switch year.
@@ -47,17 +42,24 @@
 
     <!-- VIS 02: National trend -->
     <section class="card">
-      <h2 style="margin:0 0 10px;">National monthly trend</h2>
       <div id="vis-02"></div>
     </section>
 
-    <div class="footer">
-      <div>Sources: Australian Road Deaths Database (BITRE); ABS Estimated Resident Population.</div>
-      <div>Projection: Equal Earth; Encoded with Vega-Lite.</div>
-    </div>
+    <!-- VIS 03: Small Multiples -->
+    <section class="card">
+      <h2 style="margin:0 0 10px;">Monthly road fatalities by state</h2>
+      <div id="vis-03"></div>
+    </section>
+
+    <!-- VIS 04: Crash type -->
+    <section class="card">
+      <h2 style="margin:0 0 10px;">Crash type composition over time</h2>
+      <div id="vis-04"></div>
+    </section>
+    
   </main>
 
-  <!-- Embed both specs after DOM is ready -->
+  <!-- Embed specs after DOM is ready -->
   <script>
     // Map (spec 01)
     vegaEmbed('#vis-01', 'specs/01_map_rates.json', { actions:false, renderer:'svg' })
@@ -66,6 +68,16 @@
 
     // National trend (spec 02)
     vegaEmbed('#vis-02', 'specs/02_national_trend.json', { actions:false, renderer:'svg' })
+      .then(({view}) => window.addEventListener('resize', () => view.resize()))
+      .catch(console.error);
+
+    // Small multiples (spec 03)
+    vegaEmbed('#vis-03', 'specs/03_small_multiples.json', { actions:false, renderer:'svg' })
+      .then(({view}) => window.addEventListener('resize', () => view.resize()))
+      .catch(console.error);
+
+    // Crash type (spec 04)
+    vegaEmbed('#vis-04', 'specs/04_crash_type_stack.json?v=5', { actions:false, renderer:'svg' })
       .then(({view}) => window.addEventListener('resize', () => view.resize()))
       .catch(console.error);
   </script>
