@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 860,
+  "height": 460,
+  "config": { "view": { "stroke": null } },
+
+  "params": [
+    {
+      "name": "yearParam",
+      "value": 2023,
+      "bind": { "input": "select", "options": [2020, 2021, 2022, 2023], "name": "Year: " }
+    }
+  ],
+
+  "data": {
+    "url": "data/aus_states_simplified.topo.json",
+    "format": { "type": "topojson", "feature": "au" }
+  },
+
+  "transform": [
+    { "calculate": "datum.properties.id", "as": "topo_id" },
+
+    {
+      "lookup": "topo_id",
+      "from": {
+        "data": { "url": "data/state_topo_crosswalk.csv" },
+        "key": "topo_id",
+        "fields": ["state_code"]
+      }
+    },
+
+    { "calculate": "datum.state_code + '-' + toString(yearParam)", "as": "join_key" },
+
+    {
+      "lookup": "join_key",
+      "from": {
+        "data": { "url": "data/annual_state_rates_keys.csv" },
+        "key": "join_key",
+        "fields": ["year", "deaths", "erp", "rate_per_100k"]
+      }
+    }
+  ],
+
+  "projection": { "type": "equalEarth" },
+  "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.6 },
+
+  "encoding": {
+    "color": {
+      "field": "rate_per_100k",
+      "type": "quantitative",
+      "title": "Deaths per 100,000",
+      "scale": { "scheme": "blues" }
+    },
+    "tooltip": [
+      { "field": "properties.name", "title": "State/Territory" },
+      { "field": "state_code", "title": "Code" },
+      { "field": "year", "title": "Year" },
+      { "field": "deaths", "title": "Deaths", "type": "quantitative" },
+      { "field": "erp", "title": "Population (ERP)", "type": "quantitative", "format": "," },
+      { "field": "rate_per_100k", "title": "Rate per 100k", "type": "quantitative", "format": ".2f" }
+    ]
+  }
+}

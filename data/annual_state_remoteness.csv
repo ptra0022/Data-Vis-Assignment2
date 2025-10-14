@@ -1,0 +1,302 @@
+year,state_code,remoteness,crashes,deaths
+2014,ACT,Unknown,10,10
+2014,NSW,Unknown,285,307
+2014,NT,Unknown,34,39
+2014,SA,Inner Regional Australia,24,25
+2014,SA,Major Cities of Australia,31,32
+2014,SA,Outer Regional Australia,27,34
+2014,SA,Remote Australia,3,4
+2014,SA,Very Remote Australia,11,13
+2014,TAS,Inner Regional Australia,10,10
+2014,TAS,Outer Regional Australia,17,19
+2014,TAS,Remote Australia,3,3
+2014,TAS,Unknown,1,1
+2014,VIC,Unknown,223,248
+2014,WA,Inner Regional Australia,33,35
+2014,WA,Major Cities of Australia,65,67
+2014,WA,Outer Regional Australia,25,27
+2014,WA,Remote Australia,17,17
+2014,WA,Unknown,18,19
+2014,WA,Very Remote Australia,14,17
+2015,ACT,Inner Regional Australia,1,1
+2015,ACT,Major Cities of Australia,13,14
+2015,NSW,Inner Regional Australia,132,147
+2015,NSW,Major Cities of Australia,121,125
+2015,NSW,Outer Regional Australia,65,70
+2015,NSW,Remote Australia,6,6
+2015,NSW,Very Remote Australia,2,2
+2015,NT,Outer Regional Australia,18,23
+2015,NT,Remote Australia,11,12
+2015,NT,Very Remote Australia,13,14
+2015,SA,Inner Regional Australia,25,25
+2015,SA,Major Cities of Australia,34,34
+2015,SA,Outer Regional Australia,25,29
+2015,SA,Remote Australia,8,10
+2015,SA,Very Remote Australia,4,4
+2015,TAS,Inner Regional Australia,11,11
+2015,TAS,Outer Regional Australia,17,19
+2015,TAS,Remote Australia,2,2
+2015,TAS,Unknown,1,1
+2015,TAS,Very Remote Australia,1,1
+2015,VIC,Inner Regional Australia,99,107
+2015,VIC,Major Cities of Australia,100,107
+2015,VIC,Outer Regional Australia,32,38
+2015,WA,Inner Regional Australia,25,26
+2015,WA,Major Cities of Australia,49,58
+2015,WA,Outer Regional Australia,22,25
+2015,WA,Remote Australia,8,8
+2015,WA,Unknown,21,22
+2015,WA,Very Remote Australia,17,22
+2016,ACT,Inner Regional Australia,5,5
+2016,ACT,Major Cities of Australia,5,5
+2016,NSW,Inner Regional Australia,145,151
+2016,NSW,Major Cities of Australia,140,147
+2016,NSW,Outer Regional Australia,65,76
+2016,NSW,Remote Australia,5,5
+2016,NSW,Very Remote Australia,1,1
+2016,NT,Outer Regional Australia,13,14
+2016,NT,Remote Australia,8,9
+2016,NT,Very Remote Australia,19,22
+2016,SA,Inner Regional Australia,15,15
+2016,SA,Major Cities of Australia,28,31
+2016,SA,Outer Regional Australia,23,30
+2016,SA,Remote Australia,4,4
+2016,SA,Very Remote Australia,6,6
+2016,TAS,Inner Regional Australia,15,17
+2016,TAS,Outer Regional Australia,17,19
+2016,TAS,Very Remote Australia,1,1
+2016,VIC,Inner Regional Australia,101,107
+2016,VIC,Major Cities of Australia,134,139
+2016,VIC,Outer Regional Australia,39,43
+2016,VIC,Remote Australia,1,1
+2016,WA,Inner Regional Australia,39,44
+2016,WA,Major Cities of Australia,50,52
+2016,WA,Outer Regional Australia,28,31
+2016,WA,Remote Australia,12,16
+2016,WA,Unknown,18,20
+2016,WA,Very Remote Australia,25,32
+2017,ACT,Inner Regional Australia,2,2
+2017,ACT,Major Cities of Australia,2,2
+2017,ACT,Unknown,1,1
+2017,NSW,Inner Regional Australia,134,146
+2017,NSW,Major Cities of Australia,125,138
+2017,NSW,Outer Regional Australia,85,96
+2017,NSW,Remote Australia,5,7
+2017,NSW,Very Remote Australia,2,2
+2017,NT,Outer Regional Australia,14,15
+2017,NT,Remote Australia,6,8
+2017,NT,Very Remote Australia,7,8
+2017,QLD,Inner Regional Australia,60,64
+2017,QLD,Major Cities of Australia,91,95
+2017,QLD,Outer Regional Australia,57,64
+2017,QLD,Remote Australia,14,16
+2017,QLD,Very Remote Australia,6,8
+2017,SA,Inner Regional Australia,29,32
+2017,SA,Major Cities of Australia,43,44
+2017,SA,Outer Regional Australia,15,18
+2017,SA,Remote Australia,3,3
+2017,SA,Very Remote Australia,3,3
+2017,TAS,Inner Regional Australia,18,19
+2017,TAS,Outer Regional Australia,11,11
+2017,TAS,Remote Australia,2,2
+2017,VIC,Inner Regional Australia,109,120
+2017,VIC,Major Cities of Australia,94,97
+2017,VIC,Outer Regional Australia,35,40
+2017,VIC,Remote Australia,2,2
+2017,WA,Inner Regional Australia,30,32
+2017,WA,Major Cities of Australia,51,52
+2017,WA,Outer Regional Australia,33,37
+2017,WA,Remote Australia,7,7
+2017,WA,Unknown,17,17
+2017,WA,Very Remote Australia,14,15
+2018,ACT,Major Cities of Australia,7,7
+2018,ACT,Unknown,2,2
+2018,NSW,Inner Regional Australia,110,120
+2018,NSW,Major Cities of Australia,132,139
+2018,NSW,Outer Regional Australia,73,77
+2018,NSW,Remote Australia,8,8
+2018,NSW,Very Remote Australia,3,3
+2018,NT,Outer Regional Australia,10,11
+2018,NT,Remote Australia,13,18
+2018,NT,Very Remote Australia,19,21
+2018,QLD,Inner Regional Australia,65,72
+2018,QLD,Major Cities of Australia,76,78
+2018,QLD,Outer Regional Australia,54,64
+2018,QLD,Remote Australia,15,16
+2018,QLD,Very Remote Australia,14,15
+2018,SA,Inner Regional Australia,21,22
+2018,SA,Major Cities of Australia,20,20
+2018,SA,Outer Regional Australia,26,30
+2018,SA,Remote Australia,3,3
+2018,SA,Very Remote Australia,5,5
+2018,TAS,Inner Regional Australia,11,11
+2018,TAS,Outer Regional Australia,19,20
+2018,TAS,Remote Australia,1,1
+2018,VIC,Inner Regional Australia,85,87
+2018,VIC,Major Cities of Australia,89,93
+2018,VIC,Outer Regional Australia,27,32
+2018,VIC,Unknown,1,1
+2018,WA,Inner Regional Australia,41,44
+2018,WA,Major Cities of Australia,48,48
+2018,WA,Outer Regional Australia,28,35
+2018,WA,Remote Australia,11,13
+2018,WA,Unknown,6,6
+2018,WA,Very Remote Australia,12,13
+2019,ACT,Inner Regional Australia,1,1
+2019,ACT,Major Cities of Australia,4,4
+2019,ACT,Unknown,1,1
+2019,NSW,Inner Regional Australia,128,135
+2019,NSW,Major Cities of Australia,122,132
+2019,NSW,Outer Regional Australia,65,72
+2019,NSW,Remote Australia,9,9
+2019,NSW,Very Remote Australia,5,5
+2019,NT,Outer Regional Australia,12,13
+2019,NT,Remote Australia,5,12
+2019,NT,Very Remote Australia,11,11
+2019,QLD,Inner Regional Australia,62,69
+2019,QLD,Major Cities of Australia,53,57
+2019,QLD,Outer Regional Australia,56,61
+2019,QLD,Remote Australia,15,21
+2019,QLD,Very Remote Australia,10,11
+2019,SA,Inner Regional Australia,27,29
+2019,SA,Major Cities of Australia,41,41
+2019,SA,Outer Regional Australia,28,30
+2019,SA,Remote Australia,6,6
+2019,SA,Very Remote Australia,8,8
+2019,TAS,Inner Regional Australia,5,5
+2019,TAS,Outer Regional Australia,23,23
+2019,TAS,Remote Australia,1,1
+2019,VIC,Inner Regional Australia,92,100
+2019,VIC,Major Cities of Australia,119,125
+2019,VIC,Outer Regional Australia,37,41
+2019,WA,Inner Regional Australia,36,40
+2019,WA,Major Cities of Australia,47,49
+2019,WA,Outer Regional Australia,27,29
+2019,WA,Remote Australia,13,13
+2019,WA,Unknown,10,12
+2019,WA,Very Remote Australia,19,20
+2020,ACT,Inner Regional Australia,1,1
+2020,ACT,Major Cities of Australia,3,4
+2020,ACT,Unknown,2,2
+2020,NSW,Inner Regional Australia,87,94
+2020,NSW,Major Cities of Australia,112,119
+2020,NSW,Outer Regional Australia,58,64
+2020,NSW,Remote Australia,6,6
+2020,NSW,Very Remote Australia,1,1
+2020,NT,Outer Regional Australia,9,10
+2020,NT,Remote Australia,4,5
+2020,NT,Very Remote Australia,15,16
+2020,QLD,Inner Regional Australia,77,82
+2020,QLD,Major Cities of Australia,81,88
+2020,QLD,Outer Regional Australia,63,76
+2020,QLD,Remote Australia,16,17
+2020,QLD,Very Remote Australia,14,15
+2020,SA,Inner Regional Australia,24,27
+2020,SA,Major Cities of Australia,27,29
+2020,SA,Outer Regional Australia,21,24
+2020,SA,Remote Australia,4,4
+2020,SA,Very Remote Australia,9,9
+2020,TAS,Inner Regional Australia,13,16
+2020,TAS,Outer Regional Australia,17,20
+2020,TAS,Remote Australia,1,1
+2020,TAS,Unknown,1,1
+2020,VIC,Inner Regional Australia,84,90
+2020,VIC,Major Cities of Australia,83,92
+2020,VIC,Outer Regional Australia,26,27
+2020,VIC,Remote Australia,2,2
+2020,WA,Inner Regional Australia,33,40
+2020,WA,Major Cities of Australia,47,49
+2020,WA,Outer Regional Australia,26,29
+2020,WA,Remote Australia,10,12
+2020,WA,Unknown,7,7
+2020,WA,Very Remote Australia,14,18
+2021,ACT,Inner Regional Australia,1,1
+2021,ACT,Major Cities of Australia,4,4
+2021,ACT,Unknown,6,6
+2021,NSW,Inner Regional Australia,93,102
+2021,NSW,Major Cities of Australia,92,92
+2021,NSW,Outer Regional Australia,67,73
+2021,NSW,Remote Australia,8,8
+2021,NT,Outer Regional Australia,14,14
+2021,NT,Remote Australia,5,5
+2021,NT,Very Remote Australia,13,16
+2021,QLD,Inner Regional Australia,77,84
+2021,QLD,Major Cities of Australia,83,94
+2021,QLD,Outer Regional Australia,59,64
+2021,QLD,Remote Australia,19,23
+2021,QLD,Very Remote Australia,10,12
+2021,SA,Inner Regional Australia,29,31
+2021,SA,Major Cities of Australia,33,33
+2021,SA,Outer Regional Australia,24,26
+2021,SA,Remote Australia,4,4
+2021,SA,Very Remote Australia,4,5
+2021,TAS,Inner Regional Australia,8,8
+2021,TAS,Outer Regional Australia,22,25
+2021,TAS,Remote Australia,2,2
+2021,TAS,Very Remote Australia,1,1
+2021,VIC,Inner Regional Australia,86,91
+2021,VIC,Major Cities of Australia,100,110
+2021,VIC,Outer Regional Australia,26,29
+2021,VIC,Unknown,1,1
+2021,WA,Inner Regional Australia,34,38
+2021,WA,Major Cities of Australia,54,56
+2021,WA,Outer Regional Australia,29,29
+2021,WA,Remote Australia,14,15
+2021,WA,Unknown,9,10
+2021,WA,Very Remote Australia,18,18
+2022,ACT,Major Cities of Australia,15,18
+2022,NSW,Inner Regional Australia,99,109
+2022,NSW,Major Cities of Australia,100,102
+2022,NSW,Outer Regional Australia,55,60
+2022,NSW,Remote Australia,6,6
+2022,NSW,Very Remote Australia,3,4
+2022,NT,Outer Regional Australia,13,16
+2022,NT,Remote Australia,13,14
+2022,NT,Unknown,1,1
+2022,NT,Very Remote Australia,13,16
+2022,QLD,Inner Regional Australia,79,85
+2022,QLD,Major Cities of Australia,100,106
+2022,QLD,Outer Regional Australia,69,78
+2022,QLD,Remote Australia,19,19
+2022,QLD,Very Remote Australia,8,9
+2022,SA,Inner Regional Australia,14,14
+2022,SA,Major Cities of Australia,26,27
+2022,SA,Outer Regional Australia,19,21
+2022,SA,Remote Australia,6,6
+2022,SA,Very Remote Australia,3,3
+2022,TAS,Inner Regional Australia,21,24
+2022,TAS,Outer Regional Australia,23,26
+2022,TAS,Very Remote Australia,1,1
+2022,VIC,Inner Regional Australia,101,101
+2022,VIC,Major Cities of Australia,107,107
+2022,VIC,Outer Regional Australia,24,26
+2022,VIC,Remote Australia,1,1
+2022,VIC,Unknown,5,5
+2022,WA,Unknown,161,175
+2023,ACT,Major Cities of Australia,1,1
+2023,ACT,Unknown,1,1
+2023,NSW,Inner Regional Australia,111,129
+2023,NSW,Major Cities of Australia,96,102
+2023,NSW,Outer Regional Australia,55,60
+2023,NSW,Remote Australia,5,5
+2023,NSW,Very Remote Australia,2,2
+2023,NT,Outer Regional Australia,4,4
+2023,NT,Remote Australia,1,1
+2023,NT,Very Remote Australia,3,3
+2023,QLD,Inner Regional Australia,82,91
+2023,QLD,Major Cities of Australia,70,70
+2023,QLD,Outer Regional Australia,51,52
+2023,QLD,Remote Australia,8,8
+2023,QLD,Very Remote Australia,7,8
+2023,SA,Inner Regional Australia,21,21
+2023,SA,Major Cities of Australia,41,41
+2023,SA,Outer Regional Australia,21,24
+2023,SA,Remote Australia,4,5
+2023,SA,Very Remote Australia,4,5
+2023,TAS,Inner Regional Australia,13,13
+2023,TAS,Outer Regional Australia,14,14
+2023,TAS,Remote Australia,1,1
+2023,VIC,Inner Regional Australia,42,52
+2023,VIC,Major Cities of Australia,49,52
+2023,VIC,Outer Regional Australia,16,17
+2023,VIC,Unknown,40,44

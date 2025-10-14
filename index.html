@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>DV2 — Road Fatalities per 100,000 by State</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    :root {
+      --maxw: 980px;
+      --text: #1f2937;
+      --muted: #6b7280;
+    }
+    html, body { margin: 0; padding: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); }
+    .wrap { max-width: var(--maxw); margin: 32px auto; padding: 0 16px; }
+    h1 { font-size: 1.8rem; margin: 0 0 6px; }
+    p.sub { margin: 0 0 16px; color: var(--muted); }
+    .vega-embed svg { shape-rendering: geometricPrecision; }
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); margin-bottom: 20px; }
+    figure { margin: 0; }
+    figcaption { margin-top: 10px; font-size: 0.9rem; color: var(--muted); }
+    .footer { margin-top: 28px; font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Road safety in Australia: fatalities and risk by state, road user and time</h1>
+      <p class="sub">edit here later</p>
+    </header>
+
+    <!-- VIS 01: Map -->
+    <section class="card">
+      <figure>
+        <h2 style="margin:0 0 10px;">Road Fatalities per 100,000 by State</h2>
+        <div id="vis-01"></div>
+        <figcaption>
+          Notes: Rates use annual totals and ERP averages. Hover for details. Use the dropdown to switch year.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- VIS 02: National trend -->
+    <section class="card">
+      <h2 style="margin:0 0 10px;">National monthly trend</h2>
+      <div id="vis-02"></div>
+    </section>
+
+    <div class="footer">
+      <div>Sources: Australian Road Deaths Database (BITRE); ABS Estimated Resident Population.</div>
+      <div>Projection: Equal Earth; Encoded with Vega-Lite.</div>
+    </div>
+  </main>
+
+  <!-- Embed both specs after DOM is ready -->
+  <script>
+    // Map (spec 01)
+    vegaEmbed('#vis-01', 'specs/01_map_rates.json', { actions:false, renderer:'svg' })
+      .then(({view}) => window.addEventListener('resize', () => view.resize()))
+      .catch(console.error);
+
+    // National trend (spec 02)
+    vegaEmbed('#vis-02', 'specs/02_national_trend.json', { actions:false, renderer:'svg' })
+      .then(({view}) => window.addEventListener('resize', () => view.resize()))
+      .catch(console.error);
+  </script>
+</body>
+</html>

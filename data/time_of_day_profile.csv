@@ -1,0 +1,17 @@
+state_code,time_of_day_band,crashes,deaths
+ACT,Day,244,263
+ACT,Night,215,238
+NSW,Day,8935,9891
+NSW,Night,6333,7053
+NT,Day,649,762
+NT,Night,848,961
+QLD,Day,5836,6484
+QLD,Night,4151,4608
+SA,Day,2376,2638
+SA,Night,1865,2103
+TAS,Day,842,949
+TAS,Night,619,689
+VIC,Day,6270,6906
+VIC,Night,4707,5191
+WA,Day,3367,3718
+WA,Night,2646,2906
