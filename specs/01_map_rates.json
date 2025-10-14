@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 860,
-  "height": 460,
+  "height": 500,
   "config": { "view": { "stroke": null } },
 
   "params": [
@@ -19,7 +19,6 @@
 
   "transform": [
     { "calculate": "datum.properties.id", "as": "topo_id" },
-
     {
       "lookup": "topo_id",
       "from": {
@@ -28,9 +27,7 @@
         "fields": ["state_code"]
       }
     },
-
     { "calculate": "datum.state_code + '-' + toString(yearParam)", "as": "join_key" },
-
     {
       "lookup": "join_key",
       "from": {
@@ -42,22 +39,36 @@
   ],
 
   "projection": { "type": "equalEarth" },
-  "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.6 },
+
+  "mark": { "type": "geoshape", "stroke": "#f0f0f0", "strokeWidth": 1 },
 
   "encoding": {
     "color": {
       "field": "rate_per_100k",
       "type": "quantitative",
       "title": "Deaths per 100,000",
-      "scale": { "scheme": "blues" }
+      "scale": { "scheme": "reds", "domain": [0, 30] },
+      "legend": {
+        "orient": "bottom",
+        "title": "Rate per 100k",
+        "gradientLength": 200
+      }
     },
     "tooltip": [
       { "field": "properties.name", "title": "State/Territory" },
       { "field": "state_code", "title": "Code" },
       { "field": "year", "title": "Year" },
-      { "field": "deaths", "title": "Deaths", "type": "quantitative" },
+      { "field": "deaths", "title": "Deaths", "type": "quantitative", "format": "," },
       { "field": "erp", "title": "Population (ERP)", "type": "quantitative", "format": "," },
       { "field": "rate_per_100k", "title": "Rate per 100k", "type": "quantitative", "format": ".2f" }
     ]
+  },
+
+  "title": {
+    "text": "Road Fatalities by State/Territory",
+    "subtitle": "Deaths per 100,000 population — Year: bound to selector",
+    "anchor": "start",
+    "fontSize": 20,
+    "subtitleFontSize": 13
   }
 }

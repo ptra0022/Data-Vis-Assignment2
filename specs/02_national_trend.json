@@ -1,51 +1,74 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": "container",
-  "height": 360,
-  "data": { "url": "data/monthly_state.csv", "format": {"type": "csv"} },
-
+  "description": "National monthly road fatalities (counts).",
+  "width": 900,
+  "height": 320,
+  "data": {"url": "data/monthly_state.csv", "format": {"type": "csv"}},
   "transform": [
-    { "calculate": "toNumber(datum.year)",   "as": "yearN" },
-    { "calculate": "toNumber(datum.month)",  "as": "monthN" },
-    { "calculate": "toNumber(datum.deaths)", "as": "deathsN" },
-
-    { "aggregate": [{"op": "sum", "field": "deathsN", "as": "deaths"}],
-      "groupby": ["yearN", "monthN"] },
-
-    { "calculate": "pad(format(datum.monthN, ''), 2, '0')", "as": "mm" },
-    { "calculate": "datum.yearN + '-' + datum.mm + '-01'",  "as": "dateStr" },
-    { "calculate": "toDate(datum.dateStr)",                 "as": "date" },
-
-    { "window": [{ "op": "mean", "field": "deaths", "as": "ma_3m" }],
-      "frame": [-1, 1],
-      "sort": [{ "field": "date", "order": "ascending" }] }
+    {
+      "aggregate": [{"op": "sum", "field": "deaths", "as": "deaths"}],
+      "groupby": ["year", "month"]
+    },
+    {
+      "calculate": "toDate(datum.year + '-' + datum.month + '-01')",
+      "as": "date"
+    }
   ],
-
   "layer": [
     {
-      "mark": { "type": "line", "strokeWidth": 1.5, "color": "#93c5fd" },
+      "mark": {"type": "area", "color": "#1f77b4", "opacity": 0.15, "interpolate": "monotone"},
       "encoding": {
-        "x": { "field": "date", "type": "temporal", "title": null },
-        "y": { "field": "deaths", "type": "quantitative", "title": "Monthly deaths" },
-        "tooltip": [
-          { "field": "date", "type": "temporal", "title": "Month", "format": "%b %Y" },
-          { "field": "deaths", "type": "quantitative", "title": "Deaths" }
-        ]
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "deaths", "type": "quantitative"}
       }
     },
     {
-      "mark": { "type": "line", "strokeWidth": 2.5, "color": "#1d4ed8" },
+      "mark": {"type": "line", "strokeWidth": 2.5, "color": "#1f77b4", "interpolate": "monotone"},
       "encoding": {
-        "x": { "field": "date", "type": "temporal" },
-        "y": { "field": "ma_3m", "type": "quantitative", "title": "Monthly deaths" },
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "axis": {
+            "title": null,
+            "format": "%Y",
+            "tickCount": "year",
+            "labelAngle": -30
+          }
+        },
+        "y": {
+          "field": "deaths",
+          "type": "quantitative",
+          "title": "Monthly fatalities (count)"
+        }
+      }
+    },
+    {
+      "mark": {"type": "point", "size": 28, "filled": true, "color": "#1f77b4", "opacity": 0.8},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "deaths", "type": "quantitative"},
         "tooltip": [
-          { "field": "date", "type": "temporal", "title": "Month", "format": "%b %Y" },
-          { "field": "ma_3m", "type": "quantitative", "title": "3-mo avg", "format": ".1f" }
+          {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
+          {"field": "deaths", "type": "quantitative", "title": "Deaths"}
         ]
       }
     }
   ],
-
-  "title": { "text": "National Monthly Road Fatalities (counts) with 3-month average", "anchor": "start" },
-  "config": { "view": { "stroke": null } }
+  "title": {
+    "text": "National Monthly Road Fatalities (1990–2022)",
+    "subtitle": "Source: Australian Road Deaths Database (BITRE)",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "grid": true,
+      "gridOpacity": 0.12,
+      "domain": false,
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
 }

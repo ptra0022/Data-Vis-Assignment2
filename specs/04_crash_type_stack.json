@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Crash type composition over time (share of deaths).",
+  "data": { "url": "data/annual_state_crashtype.csv", "format": { "type": "csv" } },
+
+  "params": [
+    {
+      "name": "stateParam",
+      "value": "ALL",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": ["ALL","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
+        "labels":  ["All states","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"]
+      }
+    }
+  ],
+
+  "transform": [
+    { "filter": "stateParam === 'ALL' || datum.state_code === stateParam" }
+  ],
+
+  "mark": { "type": "area" },
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "sort": "ascending",
+      "axis": { "title": "Year", "labelAngle": 0, "labelOverlap": true }
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "deaths",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": { "title": "Share of deaths", "format": ".0%" }
+    },
+    "color": { "field": "crash_type", "type": "nominal", "title": "Crash type" },
+    "tooltip": [
+      { "field": "year", "type": "ordinal", "title": "Year" },
+      { "field": "crash_type", "type": "nominal", "title": "Crash type" },
+      { "aggregate": "sum", "field": "deaths", "type": "quantitative", "title": "Deaths" }
+    ]
+  },
+
+  "width": 800,
+  "height": 320,
+  "config": { "view": { "stroke": null }, "axis": { "labelFontSize": 12, "titleFontSize": 12 } },
+  "title": { "text": "Crash type composition over time", "anchor": "start" }
+}

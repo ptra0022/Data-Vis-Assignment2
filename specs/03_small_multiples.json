@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Small multiples of monthly road fatalities by state (counts), 2020–2023.",
+  "autosize": { "type": "fit", "contains": "padding" },
+  "data": { "url": "data/monthly_state.csv" },
+
+  "transform": [
+    { "filter": "toNumber(datum.year) >= 2020 && toNumber(datum.year) <= 2023" },
+    { "calculate": "toNumber(datum.deaths)", "as": "deathsN" },
+    {
+      "aggregate": [{ "op": "sum", "field": "deathsN", "as": "deaths" }],
+      "groupby": ["state_code", "year", "month"]
+    },
+    { "calculate": "datum.year + '-' + (datum.month < 10 ? '0' + datum.month : datum.month) + '-01'", "as": "ym_str" },
+    { "calculate": "toDate(datum.ym_str)", "as": "ym_date" },
+    { "calculate": "slice(datum.ym_str,5,7) + '/' + slice(datum.ym_str,0,4)", "as": "ym_label" }
+  ],
+
+  "facet": {
+    "field": "state_code",
+    "type": "nominal",
+    "title": null,
+    "sort": ["NSW","VIC","QLD","WA","SA","TAS","NT","ACT"]
+  },
+
+  "columns": 4,
+
+  "spec": {
+    "width": 230,
+    "height": 130,
+    "layer": [
+      {
+        "mark": { "type": "line", "strokeWidth": 1.5, "clip": true },
+        "encoding": {
+          "x": {
+            "field": "ym_date",
+            "type": "temporal",
+            "timeUnit": "yearmonth",
+            "axis": {
+              "title": "Month",
+              "labelAngle": 0,
+              "labelOverlap": true,
+              "grid": false,
+              "tickCount": 5
+            }
+          },
+          "y": { "field": "deaths", "type": "quantitative", "title": "Deaths per month" }
+        }
+      },
+      {
+        "mark": { "type": "point", "size": 44, "filled": true, "opacity": 0.8, "clip": true },
+        "encoding": {
+          "x": { "field": "ym_date", "type": "temporal", "timeUnit": "yearmonth" },
+          "y": { "field": "deaths", "type": "quantitative" },
+          "tooltip": [
+            { "field": "state_code", "type": "nominal", "title": "State" },
+            { "field": "ym_label", "type": "nominal", "title": "Month" },
+            { "field": "deaths", "type": "quantitative", "title": "Deaths" }
+          ]
+        }
+      }
+    ]
+  },
+
+  "resolve": {
+    "scale": { "x": "independent", "y": "shared" },
+    "axis": { "x": "independent", "y": "independent" }
+  },
+
+  "config": {
+    "view": { "stroke": "#e5e7eb", "strokeWidth": 1 },
+    "axis": {
+      "grid": true,
+      "gridOpacity": 0.18,
+      "domain": false,
+      "labelFontSize": 11,
+      "titleFontSize": 11
+    },
+    "axisX": { "grid": false },
+    "axisY": { "tickCount": 4 }
+  }
+}
