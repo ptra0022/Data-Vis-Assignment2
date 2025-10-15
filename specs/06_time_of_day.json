@@ -1,0 +1,67 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Fatalities by time of day band, shown as 100% stacked bars by state.",
+  "data": { "url": "data/time_of_day_profile.csv" },
+  "autosize": { "type": "fit", "contains": "padding" },
+  "width": 1000,
+  "height": 320,
+
+  "transform": [
+    {
+      "aggregate": [
+        { "op": "sum", "field": "deaths", "as": "deaths_sum" }
+      ],
+      "groupby": ["state_code", "time_of_day_band"]
+    },
+    {
+      "joinaggregate": [
+        { "op": "sum", "field": "deaths_sum", "as": "state_total_deaths" }
+      ],
+      "groupby": ["state_code"]
+    },
+    { "calculate": "datum.deaths_sum / datum.state_total_deaths", "as": "share" }
+  ],
+
+  "mark": { "type": "bar", "tooltip": true },
+
+  "encoding": {
+    "x": {
+      "field": "state_code",
+      "type": "nominal",
+      "title": "State/Territory",
+      "sort": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"]
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "deaths_sum",
+      "type": "quantitative",
+      "stack": "normalize",
+      "title": "Share of deaths (100% = state total)",
+      "axis": { "format": "%" }
+    },
+    "color": {
+    "field": "time_of_day_band",
+    "type": "nominal",
+    "title": "Time of day",
+    "sort": ["Day", "Night"],
+    "scale": {
+        "domain": ["Day", "Night"],
+        "range": ["#facc15", "#111827"]
+    },
+    "legend": { "orient": "top", "columns": 2 }
+    },
+    "order": { "field": "time_of_day_band", "type": "nominal" },
+    "tooltip": [
+      { "field": "state_code", "title": "State" },
+      { "field": "time_of_day_band", "title": "Band" },
+      { "field": "deaths_sum", "title": "Deaths", "type": "quantitative" },
+      { "field": "share", "title": "Share", "type": "quantitative", "format": ".1%" }
+    ]
+  },
+
+  "config": {
+    "view": { "stroke": null },
+    "axis": { "labelFontSize": 11, "titleFontSize": 12 },
+    "legend": { "labelFontSize": 11, "titleFontSize": 12 }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bump chart of state rankings by annual road fatality rate per 100k.",
+  "title": "States ranked by road fatality rate per 100k (annual)",
+  "data": { "url": "data/annual_state_rates.csv" },
+
+  "transform": [
+    { "filter": "datum.rate_per_100k != null && datum.state_code != null && datum.year != null" },
+
+    { "calculate": "toNumber(datum.year)", "as": "year_num" },
+    { "filter": "isFinite(datum.year_num)" },
+
+    {
+      "window": [{ "op": "rank", "as": "rank" }],
+      "sort": [{ "field": "rate_per_100k", "order": "descending" }],
+      "groupby": ["year_num"]
+    },
+
+    { "joinaggregate": [
+        { "op": "min", "field": "year_num", "as": "minYear" },
+        { "op": "max", "field": "year_num", "as": "maxYear" }
+      ]
+    },
+    { "calculate": "datum.year_num == datum.minYear", "as": "isFirst" },
+    { "calculate": "datum.year_num == datum.maxYear", "as": "isLast" }
+  ],
+
+  "width": 880,
+  "height": 420,
+
+  "encoding": {
+    "x": {
+      "field": "year_num",
+      "type": "ordinal",
+      "axis": { "title": "Year", "labelAngle": 0 }
+    },
+    "y": {
+      "field": "rank",
+      "type": "quantitative",
+      "scale": { "domain": [8, 1] },
+      "axis": { "title": "Rank (1 = highest rate)" }
+    },
+    "color": {
+      "field": "state_code",
+      "type": "nominal",
+      "legend": { "title": "State/Territory" }
+    },
+    "detail": { "field": "state_code" },
+    "tooltip": [
+      { "field": "state_code", "title": "State" },
+      { "field": "year_num", "title": "Year" },
+      { "field": "rank", "type": "quantitative" },
+      { "field": "rate_per_100k", "type": "quantitative", "format": ".2f", "title": "Rate/100k" },
+      { "field": "deaths", "type": "quantitative" },
+      { "field": "erp", "type": "quantitative", "title": "Population" }
+    ]
+  },
+
+  "layer": [
+    { "mark": { "type": "line", "point": true, "strokeWidth": 2, "opacity": 0.85 } },
+
+    {
+      "transform": [{ "filter": "datum.isFirst" }],
+      "mark": { "type": "text", "align": "right", "dx": -6, "baseline": "middle", "fontSize": 11 },
+      "encoding": { "text": { "field": "state_code" } }
+    },
+    {
+      "transform": [{ "filter": "datum.isLast" }],
+      "mark": { "type": "text", "align": "left", "dx": 6, "baseline": "middle", "fontSize": 11 },
+      "encoding": { "text": { "field": "state_code" } }
+    }
+  ]
+}

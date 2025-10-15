@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Composition of road deaths by posted speed band over time (selected state).",
+  "width": 800,
+  "height": 320,
+  "params": [
+    {
+      "name": "pState",
+      "value": "NSW",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"]
+      }
+    }
+  ],
+  "data": { "url": "data/annual_state_speedlimit.csv" },
+  "transform": [
+    { "filter": "datum.state_code == pState" }
+  ],
+  "mark": { "type": "bar" },
+  "encoding": {
+    "x": {
+    "field": "year",
+    "type": "ordinal",
+    "title": "Year",
+    "sort": "ascending",
+    "axis": {
+        "labelAngle": 0,
+        "labelExpr": "(toNumber(datum.label) % 2) ? '' : datum.label",
+        "labelOverlap": "greedy"
+    }
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "deaths",
+      "stack": "normalize",
+      "title": "Share of deaths"
+    },
+    "color": {
+      "field": "speed_band",
+      "type": "nominal",
+      "title": "Speed band (km/h)",
+      "sort": ["≤50","60","70–80","90","100","110+","Unknown"]
+    },
+    "order": {
+      "field": "speed_band",
+      "sort": "ascending"
+    },
+    "tooltip": [
+      { "field": "year", "type": "ordinal", "title": "Year" },
+      { "field": "state_code", "type": "nominal", "title": "State" },
+      { "field": "speed_band", "type": "nominal", "title": "Speed band" },
+      { "aggregate": "sum", "field": "deaths", "type": "quantitative", "title": "Deaths" },
+      { "aggregate": "sum", "field": "crashes", "type": "quantitative", "title": "Crashes" }
+    ]
+  },
+  "config": {
+    "bar": { "cornerRadius": 2 },
+    "axis": { "labelFontSize": 11, "titleFontSize": 12 },
+    "legend": { "labelFontSize": 11, "titleFontSize": 12 }
+  }
+}

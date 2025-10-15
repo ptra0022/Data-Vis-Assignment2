@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>DV2 — Road Fatalities per 100,000 by State</title>
+  <title>Road safety in Australia — fatalities and risk by state and time</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Vega libraries -->
@@ -11,75 +11,252 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
   <style>
-    :root { --maxw: 980px; --text: #1f2937; --muted: #6b7280; }
-    html, body { margin: 0; padding: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans"; color: var(--text); }
-    .wrap { max-width: var(--maxw); margin: 32px auto; padding: 0 16px; }
-    h1 { font-size: 1.8rem; margin: 0 0 6px; }
-    p.sub { margin: 0 0 16px; color: var(--muted); }
-    .vega-embed svg { shape-rendering: geometricPrecision; }
-    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); margin-bottom: 20px; }
-    figure { margin: 0; }
-    figcaption { margin-top: 10px; font-size: 0.9rem; color: var(--muted); }
-    .footer { margin-top: 28px; font-size: 0.85rem; color: var(--muted); }
+    :root{
+      --maxw: 1040px;
+      --text: #0f172a;   /* slate-900 */
+      --muted: #475569;  /* slate-600 */
+      --subtle: #94a3b8; /* slate-400 */
+      --card: #ffffff;
+      --stroke: #e5e7eb;
+      --accent: #0ea5e9; /* sky-500 */
+    }
+
+    /* -------- Base -------- */
+    html,body{margin:0;padding:0;font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,"Noto Sans";
+      color:var(--text);-webkit-font-smoothing:antialiased}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:0 16px}
+    h1{font-size:2rem;line-height:1.2;margin:0 0 8px}
+    p.sub{margin:0 0 14px;color:var(--muted)}
+
+    /* -------- Cards & text -------- */
+    section.card{background:var(--card);border:1px solid var(--stroke);border-radius:12px;
+      padding:16px 16px 12px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+    section.card h2{margin:0 0 8px;font-size:1.2rem;line-height:1.25}
+    section.card p.lead{margin:0 0 12px;color:var(--muted)}
+    figure{margin:0}
+    figcaption{margin-top:8px;font-size:.9rem;color:var(--muted);max-width:65ch}
+    .note{font-size:.9rem;color:var(--muted)}
+
+    /* -------- Hero Layout -------- */
+    .hero-grid{display:grid;gap:16px}
+    @media(min-width:880px){
+      .hero-grid{grid-template-columns:1.2fr .8fr;align-items:stretch}
+    }
+    .aside{background:#f8fafc;border:1px solid var(--stroke);border-radius:10px;padding:12px 14px}
+    .aside.intro,.toc{height:100%}      /* equal heights */
+    .toc{background:#f8fafc;border:1px solid var(--stroke);border-radius:10px;padding:12px 14px}
+    .toc b{display:block;margin:0 0 8px}
+    .toc ol{margin:0;padding-left:1.2rem}
+    .toc li{margin:2px 0}
+    .toc a{color:#334155;text-decoration:none}
+    .toc a:hover{text-decoration:underline}
+
+    /* meta row spans both columns and sits neatly under the cards */
+    .hero-meta{grid-column:1 / -1;text-align:right;color:var(--subtle);font-size:.95rem;margin-top:5px}
+
+    /* polish the big title and subhead a touch */
+    h1{font-size:2.25rem;line-height:1.15;margin:0 0 6px}
+    p.sub{margin:0 0 12px;color:var(--muted);max-width:65ch}
+
+    /* Add whitespace under the two hero boxes */
+    .hero-grid { margin-bottom: 24px; }              /* mobile & default */
+    @media (min-width: 880px) { .hero-grid { margin-bottom: 40px; } }  /* laptop+ */
+
+
+    /* -------- Map split -------- */
+    .map-split{display:grid;gap:16px;align-items:stretch}
+    @media(min-width:980px){ .map-split{grid-template-columns:1.2fr .8fr} }
+    .map-help{align-self:center}                        /* vertical centering for RHS box */
+
+    /* compact variant */
+    .aside.compact{background:#f8fafc;border:1px solid var(--stroke);border-radius:10px;
+      padding:10px 12px;font-size:.9rem;line-height:1.38}
+    h3.subhead{margin:0 0 6px;font-size:1.05rem}
+    .aside.compact .subhead{font-size:1rem;margin:0 0 4px}
+    .aside.compact .note{margin:0}
+    .aside.compact ul{margin:6px 0 0;padding-left:16px}
+    .aside.compact li{margin:4px 0}
+
+    /* -------- Overflow guards -------- */
+    .vis{width:100%;min-height:320px}
+    .vega-embed, .vega-embed > *{max-width:100%}
+    .map-split > *, .hero-grid > *{min-width:0}         /* prevent grid overflow */
+
+    /* Footer */
+    .footer{margin:26px 0 34px;font-size:.9rem;color:var(--muted)}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <header>
-      <h1>Road safety in Australia: fatalities and risk by state, road user and time</h1>
-      <p class="sub">edit here later</p>
-    </header>
+    <!-- ========== HERO ========== -->
+    <header class="hero" id="top">
+    <h1>Road safety in Australia: fatalities and risk by state and time</h1>
+    <p class="sub">A compact look at where and when fatal road crashes happen across Australia, using publicly available data and per-capita rates.</p>
 
-    <!-- VIS 01: Map -->
-    <section class="card">
-      <figure>
-        <div id="vis-01"></div>
-        <figcaption>
-          Notes: Rates use annual totals and ERP averages. Hover for details. Use the dropdown to switch year.
-        </figcaption>
-      </figure>
+    <div class="hero-grid">
+      <!-- LEFT: description -->
+      <div class="aside intro">
+        <p class="note">
+          This page is for everyday Australian readers—drivers, commuters, and policy-curious audiences. It shows
+          <b>which states carry the most risk</b> and how that risk has shifted over time by converting fatal crash counts
+          into <b>deaths per 100,000 people</b> using ARDD (BITRE) and ABS ERP. In ten compact Vega-Lite visuals—including a
+          state map, national trend, state small multiples, and breakdowns by <b>time of day</b>, <b>speed environments</b>,
+          and <b>remoteness</b>—you can compare places on a like-for-like basis and spot patterns quickly. Everything loads
+          from small, pre-aggregated CSVs (&lt;1&nbsp;MB total) with simple interactions (hover tooltips and dropdown filters)
+          to keep the experience fast and accessible.
+        </p>
+      </div>
+
+      <!-- RIGHT: On this page -->
+      <div class="toc">
+        <b>On this page</b>
+        <ol>
+          <li><a href="#map">Map — rates by state</a></li>
+          <li><a href="#trend">National trend</a></li>
+          <li><a href="#multiples">State small multiples</a></li>
+          <li><a href="#type">Crash type composition</a></li>
+          <li><a href="#rank">Rank by rate</a></li>
+          <li><a href="#tod">Time-of-day profile</a></li>
+          <li><a href="#speed">Speed-limit environments</a></li>
+          <li><a href="#remote">Remoteness composition</a></li>
+          <li><a href="#yoy">YoY change (lollipop)</a></li>
+          <li><a href="#sources">Sources &amp; methods</a></li>
+        </ol>
+      </div>
+    </div>
+  </header>
+
+
+    <!-- ========== 01 MAP ========== -->
+    <section class="card" id="map" aria-label="Map of road fatality rates per 100,000 by state">
+      <div class="map-split">
+        <!-- LEFT: map -->
+        <figure>
+          <h2>Where is risk highest?</h2>
+          <p class="lead">Rates per 100,000 by state (choose a year).</p>
+          <div id="vis-01" class="vis"></div>
+          <figcaption>Equal-area projection. Rates use <em>annual deaths</em> ÷ ABS ERP average for the year. Hover for exact values.</figcaption>
+        </figure>
+
+        <!-- RIGHT: centered helper -->
+        <aside class="aside compact map-help">
+          <h3 class="subhead">How to read this map</h3>
+          <p class="note">
+            Rates allow fair comparison across different-sized states. Small populations (e.g., NT) can be volatile—check the tooltip’s deaths count.
+          </p>
+          <ul class="note">
+            <li><b>Why a map?</b> Spatial differences guide policy, enforcement and infrastructure.</li>
+            <li><b>Year selector:</b> Compare pre- and post-COVID years to see exposure shifts.</li>
+            <li><b>Takeaway:</b> NT/TAS often higher by rate; VIC/NSW typically lower.</li>
+          </ul>
+        </aside>
+      </div>
     </section>
 
-    <!-- VIS 02: National trend -->
-    <section class="card">
-      <div id="vis-02"></div>
+    <!-- ========== 02 TREND ========== -->
+    <section class="card" id="trend" aria-label="National monthly trend of road fatalities">
+      <h2>Are things getting better? — National monthly trend</h2>
+      <p class="lead">Each point is a month; the smooth line highlights longer-term movement. Spikes often align with holiday periods and seasonal travel.</p>
+      <div id="vis-02" class="vis"></div>
+      <p class="note">Hint: hover to see monthly counts. The rolling average reduces noise and shows the underlying direction.</p>
     </section>
 
-    <!-- VIS 03: Small Multiples -->
-    <section class="card">
-      <h2 style="margin:0 0 10px;">Monthly road fatalities by state</h2>
-      <div id="vis-03"></div>
+    <!-- ========== 03 SMALL MULTIPLES ========== -->
+    <section class="card" id="multiples" aria-label="State small multiples of monthly fatalities">
+      <h2>How do states differ month-to-month?</h2>
+      <p class="lead">Same vertical scale across all eight panels makes volatility easy to compare.</p>
+      <div id="vis-03" class="vis"></div>
     </section>
 
-    <!-- VIS 04: Crash type -->
-    <section class="card">
-      <h2 style="margin:0 0 10px;">Crash type composition over time</h2>
-      <div id="vis-04"></div>
+    <!-- ========== 04 CRASH TYPE ========== -->
+    <section class="card" id="type" aria-label="Crash type composition over time">
+      <h2>What types of fatal crashes dominate?</h2>
+      <p class="lead">Composition by crash type changes over time — select a state to compare its pattern with the national picture.</p>
+      <div id="vis-04" class="vis"></div>
+      <figcaption>Stacked on deaths, not crashes, to reflect severity. Categories aggregated from ARDD crash-type codes.</figcaption>
     </section>
-    
+
+    <!-- ========== 05 BUMP RANK ========== -->
+    <section class="card" id="rank" aria-label="States ranked by fatality rate per 100,000">
+      <h2>Rank movement — which states sit at the top?</h2>
+      <p class="lead">States are ranked by per-capita rate each year. Lines moving upward indicate risk rising relative to peers.</p>
+      <div id="vis-05" class="vis"></div>
+    </section>
+
+    <!-- ========== 06 TIME OF DAY ========== -->
+    <section class="card" id="tod" aria-label="Time-of-day profile of fatal crashes by state">
+      <h2>When do fatal crashes cluster?</h2>
+      <p class="lead">Profiles show shares by time-of-day band. Evening and late-night periods often account for a disproportionate share.</p>
+      <div id="vis-06" class="vis"></div>
+      <figcaption>Derived from reported crash times; bands: Night (00:00–05:59), Morning peak, Daytime, Evening peak, Late evening. Unknown times grouped as “Unknown”.</figcaption>
+    </section>
+
+    <!-- ========== 07 SPEED ========== -->
+    <section class="card" id="speed" aria-label="Distribution by posted speed limits">
+      <h2>Speed environments</h2>
+      <p class="lead">High-speed rural roads (100–110 km/h) tend to carry more fatal risk per trip — compare the composition across states and years.</p>
+      <div id="vis-07" class="vis"></div>
+    </section>
+
+    <!-- ========== 08 REMOTENESS ========== -->
+    <section class="card" id="remote" aria-label="Remoteness composition">
+      <h2>Urban vs regional/remote</h2>
+      <p class="lead">Remoteness areas (ASGS) reveal different patterns of exposure and response times. Toggle states to compare.</p>
+      <div id="vis-08" class="vis"></div>
+    </section>
+
+    <!-- ========== 09 YOY LOLLIPOP ========== -->
+    <section class="card" id="yoy" aria-label="Year-over-year change in fatality rate">
+      <h2>Latest change in rates (YoY)</h2>
+      <p class="lead">Positive values mean a higher rate than the previous year. Labels show the exact change in deaths per 100,000.</p>
+      <div id="vis-09" class="vis"></div>
+    </section>
+
+    <!-- ========== 10 SOURCES & METHODS ========== -->
+    <section class="card" id="sources" aria-label="Sources and methods">
+      <h2>Sources, methods & notes</h2>
+      <div class="hero-grid" style="grid-template-columns:1.2fr .8fr">
+        <div class="aside">
+          <ul class="note" style="margin:0;padding-left:18px">
+            <li><b>BITRE — Australian Road Deaths Database (ARDD):</b> fatal crashes dataset (monthly/state; crash type, remoteness, time, speed). Pre-aggregated into small CSVs for performance.</li>
+            <li><b>ABS — Estimated Resident Population (ERP):</b> quarterly population by state; used to compute annual and monthly rates per 100,000.</li>
+            <li><b>Boundaries:</b> ASGS state/territory boundaries (TopoJSON, simplified).</li>
+          </ul>
+          <p class="note" style="margin-top:10px"><b>Method</b> — All charts use the small CSVs in <code>/data/</code>; totals/rates are computed prior to rendering to keep the page under 1 MB. Rates = deaths ÷ ERP × 100,000. Monthly ERP uses the quarter’s value for its three months.</p>
+          <p class="note"><b>Caveats</b> — ARDD is periodically revised; some fields (time/weekday) contain unknowns. Composition charts reflect <em>deaths</em>, not exposure or non-fatal crashes.</p>
+        </div>
+        <div class="aside">
+          <p style="margin:0 0 8px"><b>What / Why / How</b></p>
+          <p class="note"><b>What:</b> Fatal crash counts (1989–), state populations (2020–2023), state boundaries.</p>
+          <p class="note"><b>Why:</b> Compare risk across states and over time; identify patterns by environment (speed, remoteness) and timing (time-of-day).</p>
+          <p class="note"><b>How:</b> 1 map + 8 comparative charts + 1 change chart; hover tooltips and simple filters aid exploration without overwhelming the reader.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>&copy; 2024 Phat Gia Tran — All charts built with Vega-Lite. Data: BITRE ARDD & ABS ERP. Boundaries: ASGS.</div>
+      <div>Authorship & date shown above. This page is a single URL, scrolly layout, designed to be readable on a small laptop without horizontal scrolling.</div>
+      <div class="note">AI assistance: language editing and code suggestions were used; final design decisions and data processing are my own.</div>
+    </footer>
   </main>
 
-  <!-- Embed specs after DOM is ready -->
+  <!-- EMBEDS -->
   <script>
-    // Map (spec 01)
-    vegaEmbed('#vis-01', 'specs/01_map_rates.json', { actions:false, renderer:'svg' })
-      .then(({view}) => window.addEventListener('resize', () => view.resize()))
-      .catch(console.error);
-
-    // National trend (spec 02)
-    vegaEmbed('#vis-02', 'specs/02_national_trend.json', { actions:false, renderer:'svg' })
-      .then(({view}) => window.addEventListener('resize', () => view.resize()))
-      .catch(console.error);
-
-    // Small multiples (spec 03)
-    vegaEmbed('#vis-03', 'specs/03_small_multiples.json', { actions:false, renderer:'svg' })
-      .then(({view}) => window.addEventListener('resize', () => view.resize()))
-      .catch(console.error);
-
-    // Crash type (spec 04)
-    vegaEmbed('#vis-04', 'specs/04_crash_type_stack.json?v=5', { actions:false, renderer:'svg' })
-      .then(({view}) => window.addEventListener('resize', () => view.resize()))
-      .catch(console.error);
+    function mount(selector, spec){
+      return vegaEmbed(selector, spec, {actions:false, renderer:'svg'})
+        .then(({view}) => window.addEventListener('resize', () => view.resize()))
+        .catch(err => console.error(spec, err));
+    }
+    mount('#vis-01','specs/01_map_rates.json');
+    mount('#vis-02','specs/02_national_trend.json');
+    mount('#vis-03','specs/03_small_multiples.json');
+    mount('#vis-04','specs/04_crash_type_stack.json');
+    mount('#vis-05','specs/05_bump_rank.json');
+    mount('#vis-06','specs/06_time_of_day.json');
+    mount('#vis-07','specs/07_speed_bars.json');
+    mount('#vis-08','specs/08_remoteness_area.json');
+    mount('#vis-09','specs/09_yoy_lollipop.json');
   </script>
 </body>
 </html>

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "YoY change in deaths per 100,000 by state (latest year available).",
+  "width": 930,
+  "height": 320,
+  "data": { "url": "data/annual_state_rates.csv" },
+
+  "transform": [
+    { "calculate": "toNumber(datum.year)", "as": "year_num" },
+    { "calculate": "toNumber(datum.rate_per_100k)", "as": "rate" },
+    { "calculate": "toNumber(datum.erp)", "as": "erp_num" },
+
+    {
+      "window": [
+        { "op": "lag", "field": "rate", "as": "lag_rate" },
+        { "op": "lag", "field": "year_num", "as": "lag_year" }
+      ],
+      "groupby": ["state_code"],
+      "sort": [{ "field": "year_num", "order": "ascending" }]
+    },
+
+    { "joinaggregate": [{ "op": "max", "field": "year_num", "as": "maxYear" }] },
+    { "filter": "datum.year_num === datum.maxYear" },
+
+    { "calculate": "datum.rate - datum.lag_rate", "as": "delta_rate" }
+  ],
+
+  "layer": [
+    {
+      "mark": { "type": "circle", "size": 120 },
+      "encoding": {
+      "y": {
+        "field": "state_code",
+        "title": "State/Territory",
+        "type": "nominal",
+        "sort": { "field": "delta_rate", "order": "descending" },
+        "axis": { "labelFontSize": 13, "labelFontWeight": "bold" }
+      },
+      "x": {
+        "field": "delta_rate",
+        "type": "quantitative",
+        "title": "YoY change in deaths per 100,000",
+        "axis": { "format": "+.1f", "grid": true, "tickCount": 7 }
+      },
+      "color": {
+        "condition": { "test": "datum.delta_rate >= 0", "value": "#3b82f6" },
+        "value": "#ef4444"
+      },
+      "tooltip": [
+        { "field": "state_code", "title": "State" },
+        { "field": "year_num", "title": "Year" },
+        { "field": "rate", "title": "Rate (this year)", "format": ".2f" },
+        { "field": "lag_year", "title": "Prev. year" },
+        { "field": "lag_rate", "title": "Rate (prev.)", "format": ".2f" },
+        { "field": "delta_rate", "title": "YoY Δ (rate)", "format": "+.2f" },
+        { "field": "deaths", "title": "Deaths (this year)" },
+        { "field": "erp_num", "title": "ERP (this year)", "format": "," }
+      ]
+    }
+    },
+    {
+      "mark": { "type": "circle", "size": 90 },
+      "encoding": {
+        "y": {
+          "field": "state_code",
+          "type": "nominal",
+          "sort": { "field": "delta_rate", "order": "descending" }
+        },
+        "x": {
+          "field": "delta_rate",
+          "type": "quantitative",
+          "title": "YoY change in deaths per 100,000",
+          "axis": { "format": "+.1f", "grid": true, "tickCount": 7 }
+        },
+        "color": {
+          "condition": { "test": "datum.delta_rate >= 0", "value": "#3b82f6" },
+          "value": "#ef4444"
+        },
+        "tooltip": [
+          { "field": "state_code", "title": "State" },
+          { "field": "year_num", "title": "Year" },
+          { "field": "rate", "title": "Rate (this year)", "format": ".2f" },
+          { "field": "lag_year", "title": "Prev. year" },
+          { "field": "lag_rate", "title": "Rate (prev.)", "format": ".2f" },
+          { "field": "delta_rate", "title": "YoY Δ (rate)", "format": "+.2f" },
+          { "field": "deaths", "title": "Deaths (this year)" },
+          { "field": "erp_num", "title": "ERP (this year)", "format": "," }
+        ]
+      }
+    }
+  ],
+
+  "config": { "view": { "stroke": null } }
+}

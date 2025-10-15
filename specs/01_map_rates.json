@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 860,
+  "width": 600,
   "height": 500,
   "config": { "view": { "stroke": null } },
 
@@ -62,13 +62,5 @@
       { "field": "erp", "title": "Population (ERP)", "type": "quantitative", "format": "," },
       { "field": "rate_per_100k", "title": "Rate per 100k", "type": "quantitative", "format": ".2f" }
     ]
-  },
-
-  "title": {
-    "text": "Road Fatalities by State/Territory",
-    "subtitle": "Deaths per 100,000 population — Year: bound to selector",
-    "anchor": "start",
-    "fontSize": 20,
-    "subtitleFontSize": 13
   }
 }

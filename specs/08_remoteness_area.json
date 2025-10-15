@@ -1,0 +1,78 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Remoteness composition of fatal crashes over time. Uses annual_state_remoteness.csv.",
+  "width": 770,
+  "height": 280,
+  "data": { "url": "data/annual_state_remoteness.csv" },
+
+  "params": [
+    {
+      "name": "stateSel",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": ["All","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
+        "labels": ["All states","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"]
+      }
+    }
+  ],
+
+  "transform": [
+    { "filter": "stateSel == 'All' || datum.state_code == stateSel" },
+
+    {
+      "aggregate": [
+        { "op": "sum", "field": "deaths", "as": "deaths" }
+      ],
+      "groupby": ["year", "remoteness"]
+    },
+    {
+      "joinaggregate": [
+        { "op": "sum", "field": "deaths", "as": "total_year" }
+      ],
+      "groupby": ["year"]
+    },
+    { "calculate": "datum.deaths / datum.total_year", "as": "share" }
+  ],
+
+  "mark": { "type": "area", "interpolate": "monotone" },
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "axis": { "title": "Year", "tickCount": 8 }
+    },
+    "y": {
+      "field": "deaths",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": { "title": "Share of deaths (100% stacked)", "format": ".0%" }
+    },
+    "color": {
+      "field": "remoteness",
+      "type": "nominal",
+      "title": "Remoteness (ASGS)",
+      "sort": [
+        "Major Cities of Australia",
+        "Inner Regional Australia",
+        "Outer Regional Australia",
+        "Remote Australia",
+        "Very Remote Australia",
+        "Unknown"
+      ]
+    },
+    "tooltip": [
+      { "field": "year", "type": "quantitative", "title": "Year" },
+      { "field": "remoteness", "type": "nominal", "title": "Remoteness" },
+      { "field": "deaths", "type": "quantitative", "title": "Deaths" },
+      { "field": "share", "type": "quantitative", "title": "Share", "format": ".1%" }
+    ]
+  },
+
+  "config": {
+    "axis": { "labelFontSize": 12, "titleFontSize": 12 },
+    "legend": { "labelFontSize": 12, "titleFontSize": 12 }
+  }
+}

@@ -26,26 +26,48 @@
   "columns": 4,
 
   "spec": {
-    "width": 230,
-    "height": 130,
+    "width": 200,
+    "height": 160,
     "layer": [
       {
         "mark": { "type": "line", "strokeWidth": 1.5, "clip": true },
         "encoding": {
-          "x": {
-            "field": "ym_date",
-            "type": "temporal",
-            "timeUnit": "yearmonth",
-            "axis": {
-              "title": "Month",
-              "labelAngle": 0,
-              "labelOverlap": true,
-              "grid": false,
-              "tickCount": 5
-            }
-          },
-          "y": { "field": "deaths", "type": "quantitative", "title": "Deaths per month" }
-        }
+    "x": {
+      "field": "ym_date",
+      "type": "temporal",
+      "timeUnit": "yearmonth",
+      "axis": {
+        "title": "Month",
+        "labelAngle": 0,
+        "labelOverlap": true,
+        "grid": false,
+        "tickCount": 5
+      }
+    },
+    "y": {
+      "field": "deaths",
+      "type": "quantitative",
+      "title": "Deaths per month"
+    },
+    "color": {
+      "field": "state_code",
+      "type": "nominal",
+      "scale": {
+        "domain": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
+        "range": [
+          "#1f77b4",  
+          "#ff7f0e",  
+          "#d62728",  
+          "#17becf",  
+          "#2ca02c",
+          "#bcbd22",
+          "#9467bd",
+          "#e377c2"
+        ]
+      },
+      "legend": null
+    }
+  }
       },
       {
         "mark": { "type": "point", "size": 44, "filled": true, "opacity": 0.8, "clip": true },
@@ -56,7 +78,25 @@
             { "field": "state_code", "type": "nominal", "title": "State" },
             { "field": "ym_label", "type": "nominal", "title": "Month" },
             { "field": "deaths", "type": "quantitative", "title": "Deaths" }
-          ]
+          ],
+          "color": {
+          "field": "state_code",
+          "type": "nominal",
+          "scale": {
+            "domain": ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
+            "range": [
+              "#1f77b4",  
+              "#ff7f0e",  
+              "#d62728",  
+              "#17becf",  
+              "#2ca02c",
+              "#bcbd22",
+              "#9467bd",
+              "#e377c2"
+            ]
+          },
+          "legend": null
+        }
         }
       }
     ]
@@ -77,6 +117,11 @@
       "titleFontSize": 11
     },
     "axisX": { "grid": false },
-    "axisY": { "tickCount": 4 }
+    "axisY": { "tickCount": 4 },
+    "header": {
+      "labelFontSize": 14,   
+      "labelFontWeight": "bold",
+      "labelPadding": 6
+    }
   }
 }
