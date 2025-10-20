@@ -1,6 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Crash type composition over time (share of deaths).",
+  "title": {
+    "text": "Crash type composition over time (share of deaths)",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
   "data": { "url": "data/annual_state_crashtype.csv", "format": { "type": "csv" } },
 
   "params": [
@@ -11,7 +17,7 @@
         "input": "select",
         "name": "State: ",
         "options": ["ALL","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"],
-        "labels":  ["All states","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"]
+        "labels": ["All states","ACT","NSW","NT","QLD","SA","TAS","VIC","WA"]
       }
     }
   ],
@@ -37,13 +43,13 @@
       "axis": { "title": "Share of deaths", "format": ".0%" }
     },
     "color": {
-    "field": "crash_type",
-    "type": "nominal",
-    "title": "Crash type",
-    "scale": {
+      "field": "crash_type",
+      "type": "nominal",
+      "title": "Crash type",
+      "scale": {
         "domain": ["Single", "Multiple"],
-        "range": ["#1f77b4", "#ff7f0e"]   
-    }
+        "range": ["#D62728", "#7F7F7F"]
+      }
     },
     "tooltip": [
       { "field": "year", "type": "ordinal", "title": "Year" },
@@ -54,5 +60,8 @@
 
   "width": 870,
   "height": 320,
-  "config": { "view": { "stroke": null }, "axis": { "labelFontSize": 12, "titleFontSize": 12 } }
+  "config": {
+    "view": { "stroke": null },
+    "axis": { "labelFontSize": 12, "titleFontSize": 12 }
+  }
 }

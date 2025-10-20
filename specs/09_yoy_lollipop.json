@@ -1,6 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "YoY change in deaths per 100,000 by state (latest year available).",
+  "title": {
+    "text": "Year-over-year change in deaths per 100,000 by state",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
   "width": 930,
   "height": 320,
   "data": { "url": "data/annual_state_rates.csv" },

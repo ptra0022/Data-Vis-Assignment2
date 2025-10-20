@@ -1,6 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Composition of road deaths by posted speed band over time (selected state).",
+  "title": {
+    "text": "Composition of road deaths by posted speed band over time",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
   "width": 800,
   "height": 320,
   "params": [
@@ -21,15 +27,15 @@
   "mark": { "type": "bar" },
   "encoding": {
     "x": {
-    "field": "year",
-    "type": "ordinal",
-    "title": "Year",
-    "sort": "ascending",
-    "axis": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "sort": "ascending",
+      "axis": {
         "labelAngle": 0,
         "labelExpr": "(toNumber(datum.label) % 2) ? '' : datum.label",
         "labelOverlap": "greedy"
-    }
+      }
     },
     "y": {
       "aggregate": "sum",
@@ -41,7 +47,19 @@
       "field": "speed_band",
       "type": "nominal",
       "title": "Speed band (km/h)",
-      "sort": ["≤50","60","70–80","90","100","110+","Unknown"]
+      "sort": ["≤50","60","70–80","90","100","110+","Unknown"],
+      "scale": {
+        "domain": ["≤50","60","70–80","90","100","110+","Unknown"],
+        "range": [
+          "#E69F00",
+          "#56B4E9",
+          "#009E73",
+          "#F0E442",
+          "#0072B2",
+          "#D55E00",
+          "#CC79A7"
+        ]
+      }
     },
     "order": {
       "field": "speed_band",

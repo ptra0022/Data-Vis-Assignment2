@@ -1,6 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Remoteness composition of fatal crashes over time. Uses annual_state_remoteness.csv.",
+  "title": {
+    "text": "Remoteness composition of road deaths over time",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
   "width": 770,
   "height": 280,
   "data": { "url": "data/annual_state_remoteness.csv" },
@@ -20,7 +26,6 @@
 
   "transform": [
     { "filter": "stateSel == 'All' || datum.state_code == stateSel" },
-
     {
       "aggregate": [
         { "op": "sum", "field": "deaths", "as": "deaths" }
@@ -61,7 +66,25 @@
         "Remote Australia",
         "Very Remote Australia",
         "Unknown"
-      ]
+      ],
+      "scale": {
+        "domain": [
+          "Major Cities of Australia",
+          "Inner Regional Australia",
+          "Outer Regional Australia",
+          "Remote Australia",
+          "Very Remote Australia",
+          "Unknown"
+        ],
+        "range": [
+          "#E69F00",
+          "#56B4E9",
+          "#009E73",
+          "#F0E442",
+          "#0072B2",
+          "#CC79A7"
+        ]
+      }
     },
     "tooltip": [
       { "field": "year", "type": "quantitative", "title": "Year" },

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Compare total alcohol-induced deaths vs fatal crashes by year.",
+  "width": 900,
+  "height": 360,
+  "title": {
+    "text": "Alcohol-Induced Deaths vs Fatal Crashes in Australia, 2020–2023",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
+  "config": { "view": { "stroke": null } },
+
+  "layer": [
+    {
+      "data": { "url": "data/alcohol_state_rates_keys.csv" },
+      "transform": [
+        { "filter": "datum.year >= 2019 && datum.year <= 2023" },
+        { "aggregate": [{ "op": "sum", "field": "deaths", "as": "total_deaths" }], "groupby": ["year"] },
+        { "calculate": "'Alcohol deaths'", "as": "Type" }
+      ],
+      "mark": { "type": "line", "point": true, "strokeWidth": 2 },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": [2019, 2020, 2021, 2022, 2023],
+          "axis": { "title": "Year", "labelAngle": 0 }
+        },
+        "y": {
+          "field": "total_deaths",
+          "type": "quantitative",
+          "axis": { "title": "Number of deaths" }
+        },
+        "color": {
+          "field": "Type",
+          "type": "nominal",
+          "scale": { "domain": ["Alcohol deaths", "Fatal crashes"], "range": ["#d62728", "#2ca02c"] },
+          "legend": { "title": "Type", "orient": "right" }
+        },
+        "tooltip": [
+          { "field": "Type", "type": "nominal" },
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "total_deaths", "type": "quantitative", "title": "Deaths", "format": "," }
+        ]
+      }
+    },
+    {
+      "data": { "url": "data/annual_state_rates_keys.csv" },
+      "transform": [
+        { "filter": "datum.year >= 2019 && datum.year <= 2023" },
+        { "aggregate": [{ "op": "sum", "field": "deaths", "as": "total_deaths" }], "groupby": ["year"] },
+        { "calculate": "'Fatal crashes'", "as": "Type" }
+      ],
+      "mark": { "type": "line", "point": true, "strokeWidth": 2 },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": [2019, 2020, 2021, 2022, 2023],
+          "axis": { "title": "Year", "labelAngle": 0 }
+        },
+        "y": {
+          "field": "total_deaths",
+          "type": "quantitative",
+          "axis": { "title": "Number of deaths" }
+        },
+        "color": {
+          "field": "Type",
+          "type": "nominal",
+          "scale": { "domain": ["Alcohol deaths", "Fatal crashes"], "range": ["#1f77b4", "#ff7f0e"] },
+          "legend": { "title": "Type", "orient": "right" }
+        },
+        "tooltip": [
+          { "field": "Type", "type": "nominal" },
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "total_deaths", "type": "quantitative", "title": "Deaths", "format": "," }
+        ]
+      }
+    }
+  ]
+}

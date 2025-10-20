@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Road safety in Australia — fatalities and risk by state and time</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Vega libraries -->
@@ -90,31 +89,26 @@
   <main class="wrap">
     <!-- ========== HERO ========== -->
     <header class="hero" id="top">
-    <h1>Road safety in Australia: fatalities and risk by state and time</h1>
-    <p class="sub">A compact look at where and when fatal road crashes happen across Australia, using publicly available data and per-capita rates.</p>
+    <h1>Road safety in Australia: Fatalities and Alcohol-related deaths</h1>
+    <p class="sub"><b>A clear snapshot of when and where fatal road crashes occur across Australia — and the outsized role alcohol plays in this ongoing tragedy.</b></p>
 
     <div class="hero-grid">
       <!-- LEFT: description -->
       <div class="aside intro">
-        <p class="note">
-          This page is for everyday Australian readers—drivers, commuters, and policy-curious audiences. It shows
-          <b>which states carry the most risk</b> and how that risk has shifted over time by converting fatal crash counts
-          into <b>deaths per 100,000 people</b> using ARDD (BITRE) and ABS ERP. In ten compact Vega-Lite visuals—including a
-          state map, national trend, state small multiples, and breakdowns by <b>time of day</b>, <b>speed environments</b>,
-          and <b>remoteness</b>—you can compare places on a like-for-like basis and spot patterns quickly. Everything loads
-          from small, pre-aggregated CSVs (&lt;1&nbsp;MB total) with simple interactions (hover tooltips and dropdown filters)
-          to keep the experience fast and accessible.
+        <p class="note" style="font-size:1.05rem; line-height:1.55">
+          This visualisation is designed for everyday Australians — the people on the roads each day, whether driving to work, commuting across town, or thinking about how policy shapes safety. It invites readers to see which states carry the greatest risk of alcohol‑related road deaths, and how those risks shift over time. By turning complex statistics into clear patterns, the story becomes less about numbers on a page and more about understanding where danger is concentrated, why it matters, and what it means for the journeys we all take.
         </p>
       </div>
 
       <!-- RIGHT: On this page -->
       <div class="toc">
-        <b>On this page</b>
+        <b>On this page (click to jump):</b> 
         <ol>
           <li><a href="#map">Map — rates by state</a></li>
           <li><a href="#trend">National trend</a></li>
           <li><a href="#multiples">State small multiples</a></li>
           <li><a href="#type">Crash type composition</a></li>
+          <li><a href="#alcohol-vs-fatal">Alcohol vs Fatal Crashes</a></li>
           <li><a href="#rank">Rank by rate</a></li>
           <li><a href="#tod">Time-of-day profile</a></li>
           <li><a href="#speed">Speed-limit environments</a></li>
@@ -133,111 +127,126 @@
         <!-- LEFT: map -->
         <figure>
           <h2>Where is risk highest?</h2>
-          <p class="lead">Rates per 100,000 by state (choose a year).</p>
+          <p class="lead">This visualisation shows alcohol-induced death rates per 100,000 people across Australian states. Use the year selector to explore how risk levels shift over time. Darker shades indicate higher fatality rates, helping highlight regional patterns and long-term trends.</p>
           <div id="vis-01" class="vis"></div>
-          <figcaption>Equal-area projection. Rates use <em>annual deaths</em> ÷ ABS ERP average for the year. Hover for exact values.</figcaption>
+          <figcaption>Equal-area projection. Rates calculated as annual alcohol-induced deaths per 100,000 people. Hover for exact values. Darker shades indicate higher fatality rates.</figcaption>
         </figure>
 
         <!-- RIGHT: centered helper -->
         <aside class="aside compact map-help">
-          <h3 class="subhead">How to read this map</h3>
+          <h3 class="subhead">Did you know?</h3>
           <p class="note">
-            Rates allow fair comparison across different-sized states. Small populations (e.g., NT) can be volatile—check the tooltip’s deaths count.
+            The Northern Territory, Queensland, and Tasmania records some of the highest alcohol-induced fatality rates in Australia (throughout the years of 2020 to 2023),
+            — a pattern shaped by their extensive rural road networks and higher speed zones.
+            These conditions often mean longer travel distances, reduced enforcement coverage, and greater exposure to high-speed crashes.
+            However, the Northern Territory shows a marked improvement in alcohol-induced death rates in
+            2022 and 2023 — reflected by a noticeably lighter shade on the map compared to previous years. In contrast,
+            2020 and 2021 were particularly severe, with NT shaded among the darkest regions nationally.
           </p>
-          <ul class="note">
-            <li><b>Why a map?</b> Spatial differences guide policy, enforcement and infrastructure.</li>
-            <li><b>Year selector:</b> Compare pre- and post-COVID years to see exposure shifts.</li>
-            <li><b>Takeaway:</b> NT/TAS often higher by rate; VIC/NSW typically lower.</li>
-          </ul>
         </aside>
       </div>
     </section>
 
     <!-- ========== 02 TREND ========== -->
     <section class="card" id="trend" aria-label="National monthly trend of road fatalities">
-      <h2>Are things getting better? — National monthly trend</h2>
-      <p class="lead">Each point is a month; the smooth line highlights longer-term movement. Spikes often align with holiday periods and seasonal travel.</p>
+      <h2>Are things getting better?</h2>
+      <p class="lead">The long-term decline in monthly road fatalities from the late 1980s through the early 2010s reflects the impact of stronger road safety policies, widespread seatbelt use, safer vehicle design, and targeted enforcement such as random breath testing and speed cameras. Infrastructure upgrades and public awareness campaigns also played a role in steadily reducing deaths. However, from around 2013 onwards the trend stabilises, and in recent years there are signs of an uptick — likely linked to increased travel exposure, population growth, and behavioural factors such as distraction and fatigue. Seasonal spikes often coincide with holiday periods when road use is highest.</p>
       <div id="vis-02" class="vis"></div>
-      <p class="note">Hint: hover to see monthly counts. The rolling average reduces noise and shows the underlying direction.</p>
+      <p class="note">Line chart of monthly road fatalities in Australia, 1989–2023. Each point shows monthly counts with a rolling average to smooth short-term fluctuations.Hover over points to see monthly counts. The rolling average reduces noise and shows the underlying direction.</p>
     </section>
 
     <!-- ========== 03 SMALL MULTIPLES ========== -->
     <section class="card" id="multiples" aria-label="State small multiples of monthly fatalities">
       <h2>How do states differ month-to-month?</h2>
-      <p class="lead">Same vertical scale across all eight panels makes volatility easy to compare.</p>
+      <p class="lead">This comparison highlights how road deaths vary month‑to‑month across Australia’s states and territories between 2020 and 2023. Larger states such as NSW and VIC show steadier patterns, reflecting their bigger populations and more consistent exposure. In contrast, smaller jurisdictions like the NT and TAS display sharp swings, where even a few incidents can cause noticeable spikes. These differences underline how population size, geography, and travel patterns shape volatility in fatality counts, with smaller states appearing more erratic while larger ones mask fluctuations through scale.</p>
       <div id="vis-03" class="vis"></div>
+      <p class="note">Eight‑panel line chart of monthly road deaths by state and territory, Jan 2020–Jan 2023. All panels use the same vertical scale to allow direct comparison of volatility and trends. Hover over points to see monthly counts.</p>
     </section>
 
     <!-- ========== 04 CRASH TYPE ========== -->
     <section class="card" id="type" aria-label="Crash type composition over time">
       <h2>What types of fatal crashes dominate?</h2>
-      <p class="lead">Composition by crash type changes over time — select a state to compare its pattern with the national picture.</p>
+      <p class="lead">This long‑term view shows that single‑vehicle crashes have consistently dominated Australia’s road fatalities since 2000. Their persistence highlights risks tied to factors like high‑speed rural travel, driver fatigue, alcohol, and loss of control incidents where no other vehicle is involved. Multiple‑vehicle crashes, while still significant, make up a smaller and steadier share of deaths. The stability of this pattern suggests that despite improvements in enforcement and vehicle safety, single‑vehicle crashes remain a stubborn challenge for road safety policy.</p>
       <div id="vis-04" class="vis"></div>
-      <figcaption>Stacked on deaths, not crashes, to reflect severity. Categories aggregated from ARDD crash-type codes.</figcaption>
+      <p class="note">Stacked area chart of fatal crash types in Australia, 2000–2021. Shows share of deaths from single‑vehicle versus multiple‑vehicle crashes, aggregated from ARDD crash‑type codes.</p>
+    </section>
+
+    <!-- ========== 10 ALCOHOL VS FATAL CRASHES ========== -->
+    <section class="card" id="alcohol-vs-fatal" aria-label="Alcohol vs Fatal Crashes">
+      <h2>How do alcohol-related deaths compare to fatal crashes?</h2>
+      <p class="lead">This comparison shows that alcohol‑related deaths remain consistently higher than deaths from fatal crashes between 2021 and 2023. Alcohol deaths rose sharply into 2022 before easing slightly in 2023, while fatal crashes followed a similar but less pronounced pattern, peaking in 2022 and then dropping more steeply. The gap between the two lines highlights alcohol’s outsized role in overall mortality, suggesting that while road safety measures may reduce crash fatalities, broader alcohol‑related harms remain a persistent challenge.</p>
+      <div id="vis-10" class="vis"></div>
+      <p class="note">Line chart comparing alcohol‑related deaths and fatal crashes in Australia, 2021–2023. Red line shows alcohol deaths; green line shows fatal crashes.</p>
+      <figcaption>Data sourced from national road safety reports.</figcaption>
     </section>
 
     <!-- ========== 05 BUMP RANK ========== -->
     <section class="card" id="rank" aria-label="States ranked by fatality rate per 100,000">
       <h2>Rank movement — which states sit at the top?</h2>
-      <p class="lead">States are ranked by per-capita rate each year. Lines moving upward indicate risk rising relative to peers.</p>
+      <p class="lead">This ranking view highlights how states’ relative road fatality risks have shifted between 2020 and 2023. The Northern Territory consistently sits at the top, reflecting its persistently high per‑capita fatality rate. Tasmania and South Australia also move upward at times, showing periods of elevated risk compared to peers. In contrast, larger states such as Victoria and New South Wales remain toward the lower end of the ranking, indicating comparatively safer outcomes per capita. The movement of lines makes clear that while some states hold steady, others fluctuate in their relative position, revealing how exposure, geography, and policy differences shape changing risk profiles.</p>
       <div id="vis-05" class="vis"></div>
+      <p class="note">Line chart ranking Australian states and territories by annual per‑capita road fatality rate, 2020–2023. Upward movement indicates rising risk relative to peers; NT remains highest throughout.</p>
     </section>
 
     <!-- ========== 06 TIME OF DAY ========== -->
     <section class="card" id="tod" aria-label="Time-of-day profile of fatal crashes by state">
       <h2>When do fatal crashes cluster?</h2>
-      <p class="lead">Profiles show shares by time-of-day band. Evening and late-night periods often account for a disproportionate share.</p>
+      <p class="lead">This comparison shows that fatal crashes disproportionately cluster at night across every Australian state and territory. While daytime travel accounts for a larger share of overall exposure, nighttime periods — particularly late evening and early morning hours — carry a much higher risk of death. The pattern is especially pronounced in smaller jurisdictions, where fewer crashes overall make the night‑time share stand out even more. These findings highlight the dangers of reduced visibility, fatigue, and alcohol involvement after dark, reinforcing why night‑time enforcement and targeted safety measures remain critical.</p>
       <div id="vis-06" class="vis"></div>
-      <figcaption>Derived from reported crash times; bands: Night (00:00–05:59), Morning peak, Daytime, Evening peak, Late evening. Unknown times grouped as “Unknown”.</figcaption>
+      <p class="note">Stacked bar chart showing distribution of fatal crashes by time of day across Australian states and territories, 2020–2023. Yellow = daytime, black = nighttime; proportions calculated as share of each state’s total deaths.</p>
     </section>
 
     <!-- ========== 07 SPEED ========== -->
     <section class="card" id="speed" aria-label="Distribution by posted speed limits">
       <h2>Speed environments</h2>
-      <p class="lead">High-speed rural roads (100–110 km/h) tend to carry more fatal risk per trip — compare the composition across states and years.</p>
+      <p class="lead">This long‑term view of NSW shows that high‑speed rural roads (100–110 km/h) consistently account for the largest share of road deaths from 1990 to 2022. While fatalities at lower speed bands (≤50 km/h and 60 km/h) remain present, they make up a much smaller proportion of the total. The persistence of deaths in the highest speed zones highlights the disproportionate risk of severe outcomes when crashes occur at rural highway speeds, where distance, enforcement challenges, and impact forces combine to drive fatality rates.</p>
       <div id="vis-07" class="vis"></div>
+      <p class="note">Stacked bar chart of fatal crash share by speed environment in NSW, 1990–2022. Bars show proportion of deaths by speed band (≤50 km/h to 110+ km/h).</p>
     </section>
 
     <!-- ========== 08 REMOTENESS ========== -->
     <section class="card" id="remote" aria-label="Remoteness composition">
       <h2>Urban vs regional/remote</h2>
-      <p class="lead">Remoteness areas (ASGS) reveal different patterns of exposure and response times. Toggle states to compare.</p>
+      <p class="lead">This breakdown shows that most road deaths occur in Australia’s major cities and inner regional areas, reflecting where the majority of people live and travel. However, deaths in remote and very remote regions, while a smaller share overall, remain disproportionately high relative to their populations. These areas face unique risks — long travel distances, higher speed environments, delayed emergency response times, and limited access to trauma care — which amplify the severity of crashes. The persistence of these patterns highlights the challenge of improving road safety outside urban centres.</p>
       <div id="vis-08" class="vis"></div>
+      <p class="note">Stacked area chart of road deaths by remoteness category in Australia, 2014–2023. Shares shown for major cities, regional, remote, and very remote areas (ASGS classification).</p>
     </section>
 
     <!-- ========== 09 YOY LOLLIPOP ========== -->
     <section class="card" id="yoy" aria-label="Year-over-year change in fatality rate">
       <h2>Latest change in rates (YoY)</h2>
-      <p class="lead">Positive values mean a higher rate than the previous year. Labels show the exact change in deaths per 100,000.</p>
+      <p class="lead">This snapshot highlights how road death rates shifted across states in the most recent year. The Northern Territory shows the largest improvement, with a sharp year‑over‑year decrease in deaths per 100,000 people. In contrast, South Australia and New South Wales record increases, signalling rising relative risk. Other states sit closer to zero change, suggesting more stable outcomes. The spread of results underscores how progress is uneven — with some jurisdictions making strong gains while others face setbacks.</p>
       <div id="vis-09" class="vis"></div>
+      <p class="note">Horizontal scatter plot of year‑over‑year change in road death rates per 100,000 by state and territory. Red = decrease, blue = increase; NT shows the largest fall, SA and NSW show rises.</p>
     </section>
 
     <!-- ========== 10 SOURCES & METHODS ========== -->
     <section class="card" id="sources" aria-label="Sources and methods">
-      <h2>Sources, methods & notes</h2>
-      <div class="hero-grid" style="grid-template-columns:1.2fr .8fr">
-        <div class="aside">
-          <ul class="note" style="margin:0;padding-left:18px">
-            <li><b>BITRE — Australian Road Deaths Database (ARDD):</b> fatal crashes dataset (monthly/state; crash type, remoteness, time, speed). Pre-aggregated into small CSVs for performance.</li>
-            <li><b>ABS — Estimated Resident Population (ERP):</b> quarterly population by state; used to compute annual and monthly rates per 100,000.</li>
-            <li><b>Boundaries:</b> ASGS state/territory boundaries (TopoJSON, simplified).</li>
-          </ul>
-          <p class="note" style="margin-top:10px"><b>Method</b> — All charts use the small CSVs in <code>/data/</code>; totals/rates are computed prior to rendering to keep the page under 1 MB. Rates = deaths ÷ ERP × 100,000. Monthly ERP uses the quarter’s value for its three months.</p>
-          <p class="note"><b>Caveats</b> — ARDD is periodically revised; some fields (time/weekday) contain unknowns. Composition charts reflect <em>deaths</em>, not exposure or non-fatal crashes.</p>
-        </div>
-        <div class="aside">
-          <p style="margin:0 0 8px"><b>What / Why / How</b></p>
-          <p class="note"><b>What:</b> Fatal crash counts (1989–), state populations (2020–2023), state boundaries.</p>
-          <p class="note"><b>Why:</b> Compare risk across states and over time; identify patterns by environment (speed, remoteness) and timing (time-of-day).</p>
-          <p class="note"><b>How:</b> 1 map + 8 comparative charts + 1 change chart; hover tooltips and simple filters aid exploration without overwhelming the reader.</p>
-        </div>
+    <h2>Sources, methods & notes</h2>
+    <div class="hero-grid" style="grid-template-columns:1.2fr .8fr">
+      <div class="aside">
+        <ul class="note" style="margin:0;padding-left:18px">
+          <li><b>BITRE — Australian Road Deaths Database (ARDD):</b> fatal crashes dataset (monthly/state; crash type, remoteness, time, speed). Pre‑aggregated into small CSVs for performance.</li>
+          <li><b>ABS — Estimated Resident Population (ERP):</b> quarterly population by state; used to compute annual and monthly rates per 100,000.</li>
+          <li><b>ABS — Alcohol‑Induced Deaths:</b> annual counts by state, age and sex; used to compare alcohol’s role in overall mortality and road safety.</li>
+          <li><b>Boundaries:</b> ASGS state/territory boundaries (TopoJSON, simplified).</li>
+        </ul>
+        <p class="note" style="margin-top:10px"><b>Method</b> — All charts use the small CSVs in <code>/data/</code>; totals/rates are computed prior to rendering to keep the page under 1 MB. Rates = deaths ÷ ERP × 100,000. Monthly ERP uses the quarter’s value for its three months.</p>
+        <p class="note"><b>Caveats</b> — ARDD is periodically revised; some fields (time/weekday) contain unknowns. Composition charts reflect <em>deaths</em>, not exposure or non‑fatal crashes. Alcohol data reflects registered causes of death, which may lag or under‑report in some cases.</p>
       </div>
-    </section>
+      <div class="aside">
+        <p style="margin:0 0 8px"><b>How to read this</b></p>
+        <p class="note">Each chart is designed to show patterns at a glance, with consistent scales so states can be compared fairly.</p>
+        <p class="note">Hover tooltips reveal exact counts and rates, while dropdown filters let you explore by state, time period, or demographic without overwhelming detail.</p>
+        <p class="note">The goal is clarity: to turn complex datasets into simple stories about where, when, and why fatal crashes — and alcohol‑related deaths — remain such a pressing issue.</p>
+      </div>
+    </div>
+  </section>
 
     <footer class="footer">
       <div>&copy; 2024 Phat Gia Tran — All charts built with Vega-Lite. Data: BITRE ARDD & ABS ERP. Boundaries: ASGS.</div>
       <div>Authorship & date shown above. This page is a single URL, scrolly layout, designed to be readable on a small laptop without horizontal scrolling.</div>
-      <div class="note">AI assistance: language editing and code suggestions were used; final design decisions and data processing are my own.</div>
+      <div class="note">AI assistance: text descriptions, language editing, css + html styling, and code suggestions were used; final design decisions and data processing are my own.</div>
     </footer>
   </main>
 
@@ -257,6 +266,7 @@
     mount('#vis-07','specs/07_speed_bars.json');
     mount('#vis-08','specs/08_remoteness_area.json');
     mount('#vis-09','specs/09_yoy_lollipop.json');
+    mount('#vis-10','specs/10_alcohol_vs_crash.json');
   </script>
 </body>
 </html>

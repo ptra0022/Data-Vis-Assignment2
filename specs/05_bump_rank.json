@@ -1,7 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Bump chart of state rankings by annual road fatality rate per 100k.",
-  "title": "States ranked by road fatality rate per 100k (annual)",
+  "title": {
+    "text": "States ranked by road fatality rate per 100k (annual)",
+    "fontSize": 16,
+    "anchor": "middle", 
+    "offset": 20
+  },
   "data": { "url": "data/annual_state_rates.csv" },
 
   "transform": [

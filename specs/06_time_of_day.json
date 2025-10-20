@@ -1,6 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Fatalities by time of day band, shown as 100% stacked bars by state.",
+  "title": {
+    "text": "Time of Day Profile of Road Deaths by State/Territory",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
   "data": { "url": "data/time_of_day_profile.csv" },
   "autosize": { "type": "fit", "contains": "padding" },
   "width": 1000,

@@ -3,6 +3,11 @@
   "description": "National monthly road fatalities (counts).",
   "width": 950,
   "height": 320,
+  "title": {
+    "text": "Australian wide monthly road fatalities (counts)",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
   "data": {"url": "data/monthly_state.csv", "format": {"type": "csv"}},
   "transform": [
     {

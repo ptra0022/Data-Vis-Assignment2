@@ -2,6 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 500,
+  "title": {
+    "text": "Alcohol-Induced Death Rates in Australia by State, 2020–2023",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
   "config": { "view": { "stroke": null } },
 
   "params": [
@@ -31,14 +36,14 @@
     {
       "lookup": "join_key",
       "from": {
-        "data": { "url": "data/annual_state_rates_keys.csv" },
+        "data": { "url": "data/alcohol_state_rates_keys.csv" },
         "key": "join_key",
         "fields": ["year", "deaths", "erp", "rate_per_100k"]
       }
     }
   ],
 
-  "projection": { "type": "equalEarth" },
+  "projection": { "type": "identity", "reflectY": true },
 
   "mark": { "type": "geoshape", "stroke": "#f0f0f0", "strokeWidth": 1 },
 
@@ -47,7 +52,7 @@
       "field": "rate_per_100k",
       "type": "quantitative",
       "title": "Deaths per 100,000",
-      "scale": { "scheme": "reds", "domain": [0, 30] },
+      "scale": { "scheme": "reds", "domain": [0, 10] },
       "legend": {
         "orient": "bottom",
         "title": "Rate per 100k",
@@ -56,10 +61,8 @@
     },
     "tooltip": [
       { "field": "properties.name", "title": "State/Territory" },
-      { "field": "state_code", "title": "Code" },
       { "field": "year", "title": "Year" },
       { "field": "deaths", "title": "Deaths", "type": "quantitative", "format": "," },
-      { "field": "erp", "title": "Population (ERP)", "type": "quantitative", "format": "," },
       { "field": "rate_per_100k", "title": "Rate per 100k", "type": "quantitative", "format": ".2f" }
     ]
   }

@@ -1,6 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Small multiples of monthly road fatalities by state (counts), 2020–2023.",
+  "title": {
+    "text": "Monthly road fatalities by state (counts), 2020–2023",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 20
+  },
   "autosize": { "type": "fit", "contains": "padding" },
   "data": { "url": "data/monthly_state.csv" },
 
