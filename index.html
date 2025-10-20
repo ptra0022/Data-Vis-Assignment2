@@ -222,26 +222,28 @@
 
     <!-- ========== 10 SOURCES & METHODS ========== -->
     <section class="card" id="sources" aria-label="Sources and methods">
-    <h2>Sources, methods & notes</h2>
-    <div class="hero-grid" style="grid-template-columns:1.2fr .8fr">
-      <div class="aside">
-        <ul class="note" style="margin:0;padding-left:18px">
-          <li><b>BITRE — Australian Road Deaths Database (ARDD):</b> fatal crashes dataset (monthly/state; crash type, remoteness, time, speed). Pre‑aggregated into small CSVs for performance.</li>
-          <li><b>ABS — Estimated Resident Population (ERP):</b> quarterly population by state; used to compute annual and monthly rates per 100,000.</li>
-          <li><b>ABS — Alcohol‑Induced Deaths:</b> annual counts by state, age and sex; used to compare alcohol’s role in overall mortality and road safety.</li>
-          <li><b>Boundaries:</b> ASGS state/territory boundaries (TopoJSON, simplified).</li>
-        </ul>
-        <p class="note" style="margin-top:10px"><b>Method</b> — All charts use the small CSVs in <code>/data/</code>; totals/rates are computed prior to rendering to keep the page under 1 MB. Rates = deaths ÷ ERP × 100,000. Monthly ERP uses the quarter’s value for its three months.</p>
-        <p class="note"><b>Caveats</b> — ARDD is periodically revised; some fields (time/weekday) contain unknowns. Composition charts reflect <em>deaths</em>, not exposure or non‑fatal crashes. Alcohol data reflects registered causes of death, which may lag or under‑report in some cases.</p>
+      <h2>Sources, methods & notes</h2>
+      <div class="hero-grid" style="grid-template-columns:1.2fr .8fr">
+        <div class="aside">
+          <ul class="note" style="margin:0;padding-left:18px">
+            <li><b>BITRE — Australian Road Deaths Database (ARDD):</b> fatal crashes dataset (monthly/state; crash type, remoteness, time, speed). Pre‑aggregated into small CSVs for performance.</li>
+            <li><b>ABS — Estimated Resident Population (ERP):</b> quarterly population by state; used to compute annual and monthly rates per 100,000.</li>
+            <li><b>ABS — Alcohol‑Induced Deaths:</b> annual counts by state, age and sex; used to compare alcohol’s role in overall mortality and road safety.</li>
+            <li><b>Boundaries:</b> ASGS state/territory boundaries (TopoJSON, simplified).</li>
+          </ul>
+          <p class="note" style="margin-top:10px"><b>Method</b> — All charts use the small CSVs in <code>/data/</code>; totals/rates are computed prior to rendering to keep the page under 1 MB. Rates = deaths ÷ ERP × 100,000. Monthly ERP uses the quarter’s value for its three months.</p>
+          <p class="note"><b>Caveats</b> — ARDD is periodically revised; some fields (time/weekday) contain unknowns. Composition charts reflect <em>deaths</em>, not exposure or non‑fatal crashes. Alcohol data reflects registered causes of death, which may lag or under‑report in some cases.</p>
+        </div>
+
+        <div class="aside">
+          <p style="margin:0 0 8px"><b>Description of Domain</b></p>
+          <p class="note"><b>Who:</b> Everyday Australians — drivers, commuters, families, and policy‑makers who want to understand where risks are highest and how they change over time.</p>
+          <p class="note"><b>What:</b> A set of maps and charts built from national crash and mortality data, showing fatality rates, alcohol’s role, and how patterns differ by state, speed, and remoteness.</p>
+          <p class="note"><b>Why:</b> To turn complex datasets into clear insights that highlight where danger is concentrated, why alcohol remains a critical factor, and how these patterns can inform safer roads and smarter policy.</p>
+        </div>
       </div>
-      <div class="aside">
-        <p style="margin:0 0 8px"><b>How to read this</b></p>
-        <p class="note">Each chart is designed to show patterns at a glance, with consistent scales so states can be compared fairly.</p>
-        <p class="note">Hover tooltips reveal exact counts and rates, while dropdown filters let you explore by state, time period, or demographic without overwhelming detail.</p>
-        <p class="note">The goal is clarity: to turn complex datasets into simple stories about where, when, and why fatal crashes — and alcohol‑related deaths — remain such a pressing issue.</p>
-      </div>
-    </div>
-  </section>
+    </section>
+
 
     <footer class="footer">
       <div>&copy; 2024 Phat Gia Tran — All charts built with Vega-Lite. Data: BITRE ARDD & ABS ERP. Boundaries: ASGS.</div>
